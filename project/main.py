@@ -37,6 +37,7 @@ def profile():
 
         elif 'delete_btn' in request.form:
             print(request.form['delete_btn'])
+    #         TODO: Remove from DB
 
 
     # if request.method == 'POST':

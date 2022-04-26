@@ -6,6 +6,19 @@ from threading import Thread
 from subprocess import Popen, PIPE
 
 
+#TODO: включить когда будет готова бд
+#TODO: перенести всё что связано в докер в отдельный модуль докер менеджер
+
+# SETTINGS_FILE = 'config.ini'
+#
+# parser = ArgumentParser(description=f'Docker application server. Look for parameters in the {SETTINGS_FILE}.')
+# parser.add_argument('-d', '--debug', help='run in debug mode', action='store_const', const=True, default=False)
+# args = parser.parse_args()
+#
+# config = ConfigParser()
+# config.read(SETTINGS_FILE)
+
+
 # запускает команду в shell и возвращает вывод
 def run_cmd(cmd):
     process = Popen(cmd, stdout=PIPE, shell=True)
@@ -37,6 +50,7 @@ def get_running_containers():
 
 # удаляет запущенные контейнеры, из которых вышел юзер (или все, если параметр True)
 def clean_containers(cleanAll=False):
+    #         TODO: Remove from DB
     for container in get_running_containers():
         clientEnter = find_last_line_in_logs(container, "Set client")
         clientExit = find_last_line_in_logs(container, "All contributions have been stopped")

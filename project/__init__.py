@@ -1,10 +1,6 @@
 # init.py
-import pathlib
-import os.path
 
-from google_auth_oauthlib.flow import Flow
-from google.oauth2 import id_token
-import google.auth.transport.requests
+import os.path
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
