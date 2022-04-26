@@ -1,7 +1,7 @@
 # main.py
 import datetime
 
-from .docker_manager import run_container
+from .docker_manager import run_container, force_remove_container, get_URL
 from flask import Blueprint, render_template, request, session, abort, current_app
 from flask_login import current_user, login_required
 from . import db
@@ -19,8 +19,8 @@ def index():
 @login_required
 def profile():
     if request.method == 'POST':
-        select = request.form.get('conteiner_btn')
-        print(select)
+        data = request.form.getlist('chkbox')
+        print(data)
 
         if 'create_btn' in request.form:
             print(request.form['create_btn'])
@@ -37,23 +37,18 @@ def profile():
 
         elif 'delete_btn' in request.form:
             print(request.form['delete_btn'])
-    #         TODO: Remove from DB
+            for id in data:
+                print(id)
+                force_remove_container(id)
+
+        elif 'share_btn' in request.form:
+            print(request.form['share_btn'])
+            for id in data:
+                print(id)
+                URL = get_URL(id)
 
 
-    # if request.method == 'POST':
-    #     if 'conteiner_btn' in request.form:
-    #         print(request.form['conteiner_btn'])
-    #     elif 'create_btn' in request.form:
-    #         print(request.form['create_btn'])
-    #     elif 'stop_btn' in request.form:
-    #         print(request.form['stop_btn'])
-    #     elif 'delete_btn' in request.form:
-    #         print(request.form['delete_btn'])
-    #     else:
-    #         pass  # unknown
-    # elif request.method == 'GET':
-    #     # return render_template("index.html")
-    #     print("No Post Back Call")
+
 
     info = []
     try:

@@ -12,7 +12,8 @@
         {% for c in list %}
 
         <tr>
-            <td><input type="submit" class="button is-fullwidth" name="conteiner_btn" value={{c.id}}></td>
+            <td><input type="checkbox" value="{{c.id}}" name="chkbox"></td>
+            <td><label>{{c.id}}</label></td>
         </tr>
 
         {% endfor %}
