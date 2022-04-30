@@ -1,7 +1,7 @@
 # init.py
 
 import os.path
-
+from os import environ
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -13,9 +13,10 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
 
-    app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
+    app.config['SECRET_KEY'] = 'secret_key'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_ECHO'] = environ.get('SQLALCHEMY_ECHO') in ('1', 'True')
 
     db.init_app(app)
 
@@ -25,7 +26,7 @@ def create_app():
 
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
-    from .models import Users, Conteiners
+    from .models import Users, Containers
 
     @login_manager.user_loader
     def load_user(user_id):

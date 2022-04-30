@@ -10,12 +10,14 @@ class Users(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
-    name = db.Column(db.String(1000))
+    name = db.Column(db.String(100))
 
-    cont = db.relationship("Conteiners", backref="Users")
+    cont = db.relationship("Containers", backref="Users")
 
 
-class Conteiners(db.Model):
+class Containers(db.Model):
     id = db.Column(db.String(100), primary_key=True)
     date = db.Column(db.DateTime, default=datetime.utcnow)
+    container_name = db.Column(db.String(100))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
